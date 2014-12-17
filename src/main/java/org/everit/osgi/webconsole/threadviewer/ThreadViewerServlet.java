@@ -101,9 +101,10 @@ public class ThreadViewerServlet extends AbstractWebConsolePlugin {
             throws ServletException,
             IOException {
         String pathInfo = request.getPathInfo();
-        if (pathInfo.indexOf("/" + THREADS_LABEL) > -1
+        if (isHtmlRequest(request)
+                && (pathInfo.indexOf("/" + THREADS_LABEL) > -1
                 && !(pathInfo.endsWith("css") || pathInfo.endsWith("js") || pathInfo.endsWith("map") || pathInfo
-                        .endsWith("json"))) {
+                        .endsWith("json")))) {
             Map<String, String> templateVars = new HashMap<String, String>(1);
             templateVars.put("rootPath", request.getAttribute("felix.webconsole.pluginRoot").toString());
             response.getWriter().println(loadTemplate("/everit/webconsole/threadviewer/template.html", templateVars));
